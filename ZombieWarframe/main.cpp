@@ -1,12 +1,8 @@
-#include <SFML/Graphics.hpp>
+﻿#include <SFML/Graphics.hpp>
 #include <ctime>
 //#include"../SFML/Images/"
 using namespace sf;
 using namespace std;
-
-
-
-
 
 
 struct coordinates {
@@ -61,7 +57,7 @@ void createBack(RenderWindow& window) {
 //Drawing the map
 void createMap(RenderWindow& window) {
 	//Drawing a map
-	Image map_image;//?????? ??????????? ??? ?????
+	Image map_image;//объект изображения для карты
 	map_image.loadFromFile("Images/grid2.png");//load the file for the map
 	Texture map;
 	map.loadFromImage(map_image);
