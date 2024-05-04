@@ -9,6 +9,8 @@ struct coordinates {
 	int x;
 	int y;
 };
+
+
 // Add this function to your code
 void drawGridWithHoverHighlight(RenderWindow& window) {
 	const int ROWS = 5;
@@ -28,12 +30,12 @@ void drawGridWithHoverHighlight(RenderWindow& window) {
 
 			// Set cell to be transparent with thin borders
 			cell.setFillColor(Color::Transparent);
-			cell.setOutlineThickness(1.f); // Adjust this to change border thickness
+			cell.setOutlineThickness(0.f); // Adjust this to change border thickness
 			cell.setOutlineColor(Color::White);
 
 			// Check if the mouse is inside this cell
 			if (cell.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-				cell.setFillColor(Color::White); // Highlight color
+				cell.setFillColor(Color(255, 255, 255, 100)); // Highlight color
 			}
 
 			window.draw(cell);
