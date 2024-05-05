@@ -1,5 +1,7 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <ctime>
+#include"Peashooter.h"
+#include"Sun.h"
 //#include"../SFML/Images/"
 using namespace sf;
 using namespace std;
@@ -31,7 +33,7 @@ void drawGridWithHoverHighlight(RenderWindow& window) {
 			// Set cell to be transparent with thin borders
 			cell.setFillColor(Color::Transparent);
 			cell.setOutlineThickness(0.f); // Adjust this to change border thickness
-			cell.setOutlineColor(Color::White);
+			cell.setOutlineColor(Color::Transparent);
 
 			// Check if the mouse is inside this cell
 			if (cell.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
@@ -130,7 +132,10 @@ int main()
 	zombieSprite.setScale(0.8f, 0.8f);
 
 	Clock clock;
-
+	Peashooter peashooter;
+	
+	
+	Sun sun;
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asMicroseconds();
@@ -154,6 +159,13 @@ int main()
 		window.draw(sunflowerCardSprite);
 		window.draw(peashooterCardSprite);
 		window.draw(zombieSprite);
+		peashooter.draw(window);
+		sun.draw(window);
+		sun.moveSun();
+
+
+
+
 
 		window.setSize(sf::Vector2u(1280, 720));
 		window.display();

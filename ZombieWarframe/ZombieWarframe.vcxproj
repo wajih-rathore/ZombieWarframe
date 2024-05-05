@@ -171,8 +171,13 @@ if exist %DLL_DIR%\*.dll (
     <ClCompile Include="DolphinRiderZombie.cpp" />
     <ClCompile Include="FlyingZombie.cpp" />
     <ClCompile Include="FootballZombie.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Peashooter.cpp" />
+    <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="PlantFactory.cpp" />
     <ClCompile Include="SimpleZombie.cpp" />
+    <ClCompile Include="Sun.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +185,12 @@ if exist %DLL_DIR%\*.dll (
     <ClInclude Include="DolphinRiderZombie.h" />
     <ClInclude Include="FlyingZombie.h" />
     <ClInclude Include="FootballZombie.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Peashooter.h" />
+    <ClInclude Include="Plant.h" />
+    <ClInclude Include="PlantFactory.h" />
     <ClInclude Include="SimpleZombie.h" />
+    <ClInclude Include="Sun.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
