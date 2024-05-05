@@ -103,6 +103,7 @@ int main()
 	}
 
 	Clock timeMoney;
+	Event event;
 
 	//Texture peaShooterTexture;
 	//Sprite peaShooterSprite;
@@ -131,9 +132,12 @@ int main()
 	zombieSprite.setPosition(490, 540);
 	zombieSprite.setScale(0.8f, 0.8f);
 
+	// Set the origin to the center of the sprite
+	zombieSprite.setOrigin(zombieSprite.getLocalBounds().width / 2, zombieSprite.getLocalBounds().height / 2);
+
 	Clock clock;
 	Peashooter peashooter;
-	
+	bool isDragging = false;
 	
 	Sun sun;
 	while (window.isOpen())
@@ -149,6 +153,33 @@ int main()
 		{
 			if (event.type == Event::Closed)
 				window.close();
+			if (event.type == Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					Vector2i mousePos = Mouse::getPosition(window);
+					if (zombieSprite.getGlobalBounds().contains(mousePos.x, mousePos.y))
+					{
+						isDragging = true;
+					}
+				}
+			}
+
+			if (event.type == Event::MouseButtonReleased)
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					isDragging = false;
+				}
+			}
+
+
+			if (isDragging)
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+				zombieSprite.setPosition(mousePos.x, mousePos.y);
+			}
+
 		}
 
 
@@ -162,13 +193,13 @@ int main()
 		peashooter.draw(window);
 		sun.draw(window);
 		sun.moveSun();
-
-
-
+		
 
 
 		window.setSize(sf::Vector2u(1280, 720));
 		window.display();
 	}
+
+
 	return 0;
 }
