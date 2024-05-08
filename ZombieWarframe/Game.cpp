@@ -13,27 +13,47 @@ void Game::run() {
     const int ROWS = 5;
     const int COLS = 9;
 
-        Texture zombieTexture;
-        Sprite zombieSprite;
-        zombieTexture.loadFromFile("Images/Zombie_0.png");
-        zombieSprite.setTexture(zombieTexture);
-        zombieSprite.setPosition(490, 540);
-        zombieSprite.setScale(0.8f, 0.8f);
+    Texture zombieTexture;
+    Sprite zombieSprite;
+    zombieTexture.loadFromFile("Images/Zombie_0.png");
+    zombieSprite.setTexture(zombieTexture);
+    zombieSprite.setPosition(490, 540);
+    zombieSprite.setScale(0.8f, 0.8f);
 
-        // Set the origin to the center of the sprite
-        zombieSprite.setOrigin(zombieSprite.getLocalBounds().width / 2, zombieSprite.getLocalBounds().height / 2);
+    //Set the origin to the center of the sprite
+    zombieSprite.setOrigin(zombieSprite.getLocalBounds().width / 2, zombieSprite.getLocalBounds().height / 2);
 
+    //plantFactory->Peashooter();
+
+
+	Texture peashooterCardTexture;
+	Sprite peashooterCardSprite;
+	peashooterCardTexture.loadFromFile("Images/card_peashooter.png");
+	peashooterCardSprite.setTexture(peashooterCardTexture);
+	peashooterCardSprite.setPosition(10, 145);
+	peashooterCardSprite.setScale(1.2, 1.2);
+    //peashooterCardSprite.setOrigin(peashooterCardSprite.getLocalBounds().width / 2, peashooterCardSprite.getLocalBounds().height / 2);
+
+    bool isPeashooterSelected = false;
 
     while (window.isOpen()) {
         float time = timeMoney.getElapsedTime().asMicroseconds();
         float moneyTime = timeMoney.getElapsedTime().asSeconds();
         time = time / 800;
 
+
+        
         sf::Event event;
-        while (window.pollEvent(event)) {
+
+        while (window.pollEvent(event))
+        {
             handleWindowCloseEvent(window, event);
-            handleMousePressedEvent(window, event, zombieSprite, isDragging);
-            handleMouseReleasedEvent(window, event, isDragging);
+            handleMousePressedEvent(window, event, zombieSprite);
+            handleMouseReleasedEvent(window, event);
+            placePeashooter(window, event, peashooterCardSprite, isPeashooterSelected);
+
+
+       
         }
 
         handleDragging(window, zombieSprite);
@@ -120,7 +140,7 @@ void Game::handleWindowCloseEvent(sf::RenderWindow& window, sf::Event& event) {
     }
 }
 
-void Game::handleMousePressedEvent(sf::RenderWindow& window, sf::Event& event, sf::Sprite& zombieSprite, bool& isDragging) {
+void Game::handleMousePressedEvent(sf::RenderWindow& window, sf::Event& event, sf::Sprite& zombieSprite) {
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -131,7 +151,7 @@ void Game::handleMousePressedEvent(sf::RenderWindow& window, sf::Event& event, s
     }
 }
 
-void Game::handleMouseReleasedEvent(sf::RenderWindow& window, sf::Event& event, bool& isDragging) {
+void Game::handleMouseReleasedEvent(sf::RenderWindow& window, sf::Event& event) {
     if (event.type == sf::Event::MouseButtonReleased) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             isDragging = false;
@@ -145,4 +165,22 @@ void Game::handleDragging(sf::RenderWindow& window, sf::Sprite& zombieSprite) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
         zombieSprite.setPosition(mousePos.x, mousePos.y);
     }
+}
+
+
+void Game::placePeashooter(sf::RenderWindow& window, sf::Event& event, sf::Sprite& peashooterCardSprite, bool& isPeashooterSelected) 
+{
+	if (event.mouseButton.button == Mouse::Left)
+	{
+		Vector2i mousePos = Mouse::getPosition(window);
+
+		if (peashooterCardSprite.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+			isPeashooterSelected = true;
+		}
+		else if (isPeashooterSelected) {
+			peashooter.createPeashooter(mousePos.x, mousePos.y);
+			isPeashooterSelected = false;
+		}
+
+	}
 }

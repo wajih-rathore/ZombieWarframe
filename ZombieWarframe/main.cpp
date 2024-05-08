@@ -1,10 +1,10 @@
 ﻿#include <SFML/Graphics.hpp>
 #include "Game.h"
 
-int main() {
+void main() 
+{
     Game game;
     game.run();
-    return 0;
 }
 
 
