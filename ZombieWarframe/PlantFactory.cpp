@@ -6,19 +6,12 @@ int PlantFactory::plantCount = 0;
 
 PlantFactory::PlantFactory()
 {
-	plant = new Plant*[45];
-	for (int i = 0; i < 45; i++)
-	{
-		plant[i] = NULL;
-	}
-	++plantCount;
-
-	plant[plantCount] = new Peashooter();
-
+	plantCount = 0;
 }
-void PlantFactory::createPeashooter(int x, int y)
+void PlantFactory::createPeashooter(int rows, int cols)
 {
-	
+	peashooter[plantCount] = new Peashooter(rows, cols);
+	plantCount++;
 }
 int PlantFactory::getPlantCount()
 {
@@ -28,7 +21,18 @@ int PlantFactory::getPlantCount()
 PlantFactory::~PlantFactory()
 {
 
-	--plantCount;
+	for (int i = 0; i < plantCount; i++)
+	{
+		delete peashooter[i];
+	}
+}
+
+void PlantFactory::draw(RenderWindow& window)
+{
+	for (int i = 0; i < plantCount; i++)
+	{
+		peashooter[i]->draw(window);
+	}
 }
 
 

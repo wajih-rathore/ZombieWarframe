@@ -1,12 +1,12 @@
 #pragma once
 #include "Plant.h"
-#include"PlantFactory.h"
-
+#include<iostream>
 class Peashooter : public Plant
 {
 public:
 	Peashooter();
+	Peashooter(int x, int y);
 	void draw(RenderWindow& draw);
-	void createPeashooter(int x, int y);
+
 };
 

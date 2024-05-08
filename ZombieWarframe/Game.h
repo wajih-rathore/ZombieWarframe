@@ -1,9 +1,11 @@
 #pragma once
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Peashooter.h"
 #include "Sun.h"
 #include "PlantFactory.h"
 using namespace sf;
+using namespace std;
 
 class Game {
 public:
@@ -23,8 +25,8 @@ private:
     void placePeashooter(sf::RenderWindow& window, sf::Event& event, sf::Sprite& peashooterCardSprite, bool& isPeashooterSelected);
 
     RenderWindow window;
+    PlantFactory plantFactory;
     Clock timeMoney;
-    Sprite sunflowerCardSprite;
     Sprite peashooterCardSprite;
     Sprite zombieSprite;
     Peashooter peashooter;

@@ -12,6 +12,7 @@ Game::Game() : window(sf::VideoMode(1280, 720), "Plants Vs Zombies"), isDragging
 void Game::run() {
     const int ROWS = 5;
     const int COLS = 9;
+    bool celloccupied[5][9] = { false };
 
     Texture zombieTexture;
     Sprite zombieSprite;
@@ -19,12 +20,10 @@ void Game::run() {
     zombieSprite.setTexture(zombieTexture);
     zombieSprite.setPosition(490, 540);
     zombieSprite.setScale(0.8f, 0.8f);
-
-    //Set the origin to the center of the sprite
     zombieSprite.setOrigin(zombieSprite.getLocalBounds().width / 2, zombieSprite.getLocalBounds().height / 2);
 
     //plantFactory->Peashooter();
-
+    
 
 	Texture peashooterCardTexture;
 	Sprite peashooterCardSprite;
@@ -32,8 +31,6 @@ void Game::run() {
 	peashooterCardSprite.setTexture(peashooterCardTexture);
 	peashooterCardSprite.setPosition(10, 145);
 	peashooterCardSprite.setScale(1.2, 1.2);
-    //peashooterCardSprite.setOrigin(peashooterCardSprite.getLocalBounds().width / 2, peashooterCardSprite.getLocalBounds().height / 2);
-
     bool isPeashooterSelected = false;
 
     while (window.isOpen()) {
@@ -41,19 +38,40 @@ void Game::run() {
         float moneyTime = timeMoney.getElapsedTime().asSeconds();
         time = time / 800;
 
-
         
-        sf::Event event;
+        
+        Event event;
 
         while (window.pollEvent(event))
         {
             handleWindowCloseEvent(window, event);
-            handleMousePressedEvent(window, event, zombieSprite);
-            handleMouseReleasedEvent(window, event);
-            placePeashooter(window, event, peashooterCardSprite, isPeashooterSelected);
+           // handleMousePressedEvent(window, event, zombieSprite);
+            //handleMouseReleasedEvent(window, event);
+            //placePeashooter(window, event, peashooterCardSprite, isPeashooterSelected);
 
+            Vector2i mousePosition = Mouse::getPosition(window);
+            
+            
+            if (event.type == Event::MouseButtonPressed)
+            {
+                cout << "Mouse presses"<<endl;
 
-       
+                for (int i = 0; i <5; i++) {
+                    for (int j = 0; j < 9; j++) {
+                        cout << celloccupied[i][j] << " ";
+					
+                    }
+                    cout<< endl;
+                }
+                int column = ((mousePosition.x - 230) / 90) + 1;
+                int row = ((mousePosition.y - 120) / 110) + 1;
+                if( ( (mousePosition.x > 230 && mousePosition.x < 1040)  && (mousePosition.y > 120 && mousePosition.y < 670) ) && !celloccupied[row-1][column-1])
+				{
+				    cout << "Row: " << row<< " Column: " << column<< endl;
+                    plantFactory.createPeashooter(row, column);
+				    	celloccupied[row-1][column-1] = true;
+				}
+            }
         }
 
         handleDragging(window, zombieSprite);
@@ -61,10 +79,10 @@ void Game::run() {
         createBack(window);
         drawGridWithHoverHighlight(window);
 
-        window.draw(sunflowerCardSprite);
         window.draw(peashooterCardSprite);
         window.draw(zombieSprite);
-        peashooter.draw(window);
+        //peashooter.draw(window);
+        plantFactory.draw(window);
         sun.draw(window);
         sun.moveSun();
 
@@ -73,7 +91,7 @@ void Game::run() {
     }
 }
 
-void Game::createBack(sf::RenderWindow& window) {
+void Game::createBack(RenderWindow& window) {
     sf::Image map_image;
     map_image.loadFromFile("Images/background.png");
     sf::Texture map;
@@ -85,7 +103,7 @@ void Game::createBack(sf::RenderWindow& window) {
     window.draw(s_map);
 }
 
-void Game::drawGridWithHoverHighlight(sf::RenderWindow& window) {
+void Game::drawGridWithHoverHighlight(RenderWindow& window) {
     const int ROWS = 5;
     const int COLS = 9;
     const int CELL_WIDTH = 90;
@@ -110,7 +128,7 @@ void Game::drawGridWithHoverHighlight(sf::RenderWindow& window) {
     }
 }
 
-void Game::createMap(sf::RenderWindow& window) {
+void Game::createMap(RenderWindow& window) {
     sf::Image map_image;
     map_image.loadFromFile("Images/grid2.png");
     sf::Texture map;
@@ -122,7 +140,7 @@ void Game::createMap(sf::RenderWindow& window) {
     window.draw(s_map);
 }
 
-void Game::displayMouseCoordinates(sf::RenderWindow& window, sf::Font& font) {
+void Game::displayMouseCoordinates(RenderWindow& window, Font& font) {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     sf::Text mousePosText;
     mousePosText.setFont(font);
@@ -133,14 +151,13 @@ void Game::displayMouseCoordinates(sf::RenderWindow& window, sf::Font& font) {
     window.draw(mousePosText);
 }
 
-
-void Game::handleWindowCloseEvent(sf::RenderWindow& window, sf::Event& event) {
+void Game::handleWindowCloseEvent(RenderWindow& window, Event& event) {
     if (event.type == sf::Event::Closed) {
         window.close();
     }
 }
 
-void Game::handleMousePressedEvent(sf::RenderWindow& window, sf::Event& event, sf::Sprite& zombieSprite) {
+void Game::handleMousePressedEvent(RenderWindow& window, Event& event, Sprite& zombieSprite) {
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -151,7 +168,7 @@ void Game::handleMousePressedEvent(sf::RenderWindow& window, sf::Event& event, s
     }
 }
 
-void Game::handleMouseReleasedEvent(sf::RenderWindow& window, sf::Event& event) {
+void Game::handleMouseReleasedEvent(RenderWindow& window, Event& event) {
     if (event.type == sf::Event::MouseButtonReleased) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             isDragging = false;
@@ -159,16 +176,14 @@ void Game::handleMouseReleasedEvent(sf::RenderWindow& window, sf::Event& event) 
     }
 }
 
-
-void Game::handleDragging(sf::RenderWindow& window, sf::Sprite& zombieSprite) {
+void Game::handleDragging(RenderWindow& window, Sprite& zombieSprite) {
     if (isDragging) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
         zombieSprite.setPosition(mousePos.x, mousePos.y);
     }
 }
 
-
-void Game::placePeashooter(sf::RenderWindow& window, sf::Event& event, sf::Sprite& peashooterCardSprite, bool& isPeashooterSelected) 
+void Game::placePeashooter(RenderWindow& window, Event& event,Sprite& peashooterCardSprite, bool& isPeashooterSelected) 
 {
 	if (event.mouseButton.button == Mouse::Left)
 	{
@@ -178,7 +193,7 @@ void Game::placePeashooter(sf::RenderWindow& window, sf::Event& event, sf::Sprit
 			isPeashooterSelected = true;
 		}
 		else if (isPeashooterSelected) {
-			peashooter.createPeashooter(mousePos.x, mousePos.y);
+			//peashooter.createPeashooter(mousePos.x, mousePos.y);
 			isPeashooterSelected = false;
 		}
 
