@@ -23,6 +23,8 @@ private:
     void handleMouseReleasedEvent(sf::RenderWindow& window, sf::Event& event);
     void handleDragging(sf::RenderWindow& window, sf::Sprite& zombieSprite);
     void placePeashooter(sf::RenderWindow& window, sf::Event& event, sf::Sprite& peashooterCardSprite, bool& isPeashooterSelected);
+    void createPlantOfType(sf::Event& event, sf::Vector2i& mousePosition);
+    void drawCardsTextureAndSprite(RenderWindow& window);
 
     RenderWindow window;
     PlantFactory plantFactory;
@@ -34,4 +36,5 @@ private:
 
     Sun sun;
     bool isDragging;
+    bool celloccupied[5][9] = { false };
 };

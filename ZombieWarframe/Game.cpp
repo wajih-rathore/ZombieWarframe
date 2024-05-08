@@ -12,7 +12,7 @@ Game::Game() : window(sf::VideoMode(1280, 720), "Plants Vs Zombies"), isDragging
 void Game::run() {
     const int ROWS = 5;
     const int COLS = 9;
-    bool celloccupied[5][9] = { false };
+    //bool celloccupied[5][9] = { false };
 
     Texture zombieTexture;
     Sprite zombieSprite;
@@ -21,16 +21,7 @@ void Game::run() {
     zombieSprite.setPosition(490, 540);
     zombieSprite.setScale(0.8f, 0.8f);
     zombieSprite.setOrigin(zombieSprite.getLocalBounds().width / 2, zombieSprite.getLocalBounds().height / 2);
-
-    //plantFactory->Peashooter();
     
-
-	Texture peashooterCardTexture;
-	Sprite peashooterCardSprite;
-	peashooterCardTexture.loadFromFile("Images/card_peashooter.png");
-	peashooterCardSprite.setTexture(peashooterCardTexture);
-	peashooterCardSprite.setPosition(10, 145);
-	peashooterCardSprite.setScale(1.2, 1.2);
     bool isPeashooterSelected = false;
 
     while (window.isOpen()) {
@@ -48,30 +39,10 @@ void Game::run() {
            // handleMousePressedEvent(window, event, zombieSprite);
             //handleMouseReleasedEvent(window, event);
             //placePeashooter(window, event, peashooterCardSprite, isPeashooterSelected);
-
             Vector2i mousePosition = Mouse::getPosition(window);
-            
-            
-            if (event.type == Event::MouseButtonPressed)
-            {
-                cout << "Mouse presses"<<endl;
+            createPlantOfType(event, mousePosition);
+    //        
 
-                for (int i = 0; i <5; i++) {
-                    for (int j = 0; j < 9; j++) {
-                        cout << celloccupied[i][j] << " ";
-					
-                    }
-                    cout<< endl;
-                }
-                int column = ((mousePosition.x - 230) / 90) + 1;
-                int row = ((mousePosition.y - 120) / 110) + 1;
-                if( ( (mousePosition.x > 230 && mousePosition.x < 1040)  && (mousePosition.y > 120 && mousePosition.y < 670) ) && !celloccupied[row-1][column-1])
-				{
-				    cout << "Row: " << row<< " Column: " << column<< endl;
-                    plantFactory.createPeashooter(row, column);
-				    	celloccupied[row-1][column-1] = true;
-				}
-            }
         }
 
         handleDragging(window, zombieSprite);
@@ -85,6 +56,7 @@ void Game::run() {
         plantFactory.draw(window);
         sun.draw(window);
         sun.moveSun();
+        drawCardsTextureAndSprite(window);
 
         window.setSize(sf::Vector2u(1280, 720));
         window.display();
@@ -198,4 +170,86 @@ void Game::placePeashooter(RenderWindow& window, Event& event,Sprite& peashooter
 		}
 
 	}
+}
+
+void Game::createPlantOfType(sf::Event& event, sf::Vector2i& mousePosition)
+{
+
+    if (event.type == Event::MouseButtonPressed)
+    {
+        cout << "Mouse presses" << endl;
+
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                cout << celloccupied[i][j] << " ";
+
+            }
+            cout << endl;
+        }
+        int column = ((mousePosition.x - 230) / 90) + 1;
+        int row = ((mousePosition.y - 120) / 110) + 1;
+        if (((mousePosition.x > 230 && mousePosition.x < 1040) && (mousePosition.y > 120 && mousePosition.y < 670)) && !celloccupied[row - 1][column - 1])
+        {
+            cout << "Row: " << row << " Column: " << column << endl;
+            plantFactory.createPlant(row, column);
+            celloccupied[row - 1][column - 1] = true;
+        }
+    }
+
+}
+
+void Game::drawCardsTextureAndSprite(RenderWindow& window)
+{
+    Texture sunflowerCardTexture;
+    Sprite sunflowerCardSprite;
+    sunflowerCardTexture.loadFromFile("Images/SunflowerCard.png");
+    sunflowerCardSprite.setTexture(sunflowerCardTexture);
+    sunflowerCardSprite.setPosition(10, 70);
+    sunflowerCardSprite.setScale(0.5f, 0.5f);
+    window.draw(sunflowerCardSprite);
+
+
+    Texture peashooterCardTexture;
+	Sprite peashooterCardSprite;
+	peashooterCardTexture.loadFromFile("Images/PeashooterCard.png");
+	peashooterCardSprite.setTexture(peashooterCardTexture);
+	peashooterCardSprite.setPosition(10, 170);
+	peashooterCardSprite.setScale(0.5f, 0.5f);
+	window.draw(peashooterCardSprite);
+
+    Texture wallnutCardTexture;
+    Sprite wallnutCardSprite;
+    wallnutCardTexture.loadFromFile("Images/WallnutCard.png");
+    wallnutCardSprite.setTexture(wallnutCardTexture);
+    wallnutCardSprite.setPosition(10, 230);
+    wallnutCardSprite.setScale(0.21f, 0.21f);
+    window.draw(wallnutCardSprite);
+
+    Texture cherrybombCardTexture;
+    Sprite cherrybombCardSprite;
+    cherrybombCardTexture.loadFromFile("Images/CherryBombCard.png");
+    cherrybombCardSprite.setTexture(cherrybombCardTexture);
+    cherrybombCardSprite.setPosition(10, 360);
+    cherrybombCardSprite.setScale(0.52f, 0.52f);
+    window.draw(cherrybombCardSprite);
+
+    Texture repeaterCardTexture;
+    Sprite repeaterCardSprite;
+    repeaterCardTexture.loadFromFile("Images/RepeaterCard.png");
+    repeaterCardSprite.setTexture(repeaterCardTexture);
+    repeaterCardSprite.setPosition(10, 460);
+    repeaterCardSprite.setScale(0.5f, 0.5f);
+    window.draw(repeaterCardSprite);
+
+    Texture snowpeaCardTexture;
+    Sprite snowpeaCardSprite;
+    snowpeaCardTexture.loadFromFile("Images/SnowpeaCard.png");
+    snowpeaCardSprite.setTexture(snowpeaCardTexture);
+    snowpeaCardSprite.setPosition(10, 550);
+    snowpeaCardSprite.setScale(0.5f, 0.5f);
+    window.draw(snowpeaCardSprite);
+
+
 }

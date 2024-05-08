@@ -167,6 +167,7 @@ if exist %DLL_DIR%\*.dll (
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Card.cpp" />
     <ClCompile Include="DancingZombie.cpp" />
     <ClCompile Include="DolphinRiderZombie.cpp" />
     <ClCompile Include="FlyingZombie.cpp" />
@@ -181,6 +182,7 @@ if exist %DLL_DIR%\*.dll (
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Card.h" />
     <ClInclude Include="DancingZombie.h" />
     <ClInclude Include="DolphinRiderZombie.h" />
     <ClInclude Include="FlyingZombie.h" />

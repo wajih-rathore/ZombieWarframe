@@ -1,27 +1,27 @@
 #include "PlantFactory.h"
 
 
-int PlantFactory::plantCount = 0;
+int PlantFactory::peashooterCount = 0;
 
 
 PlantFactory::PlantFactory()
 {
-	plantCount = 0;
+	
 }
-void PlantFactory::createPeashooter(int rows, int cols)
+void PlantFactory::createPlant(int rows, int cols)
 {
-	peashooter[plantCount] = new Peashooter(rows, cols);
-	plantCount++;
+	peashooter[peashooterCount] = new Peashooter(rows, cols);
+	peashooterCount++;
 }
 int PlantFactory::getPlantCount()
 {
-	return plantCount;
+	return peashooterCount;
 }
 
 PlantFactory::~PlantFactory()
 {
 
-	for (int i = 0; i < plantCount; i++)
+	for (int i = 0; i < peashooterCount; i++)
 	{
 		delete peashooter[i];
 	}
@@ -29,7 +29,7 @@ PlantFactory::~PlantFactory()
 
 void PlantFactory::draw(RenderWindow& window)
 {
-	for (int i = 0; i < plantCount; i++)
+	for (int i = 0; i < peashooterCount; i++)
 	{
 		peashooter[i]->draw(window);
 	}

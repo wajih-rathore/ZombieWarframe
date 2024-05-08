@@ -5,7 +5,7 @@ using namespace sf;
 
 class PlantFactory
 {
-	static int plantCount;
+	static int peashooterCount;
 	Peashooter* peashooter[45];
 	//Sun flower[45];
 public:
@@ -13,7 +13,7 @@ public:
 	int getPlantCount ();
 	~PlantFactory();
 	void draw(RenderWindow& window);
-	void createPeashooter(int x, int y);
+	void createPlant(int x, int y);
 };
 
 
