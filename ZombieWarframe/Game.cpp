@@ -1,5 +1,7 @@
 #include "Game.h"
 
+int Game::plantType = 0;
+
 Game::Game() : window(sf::VideoMode(1280, 720), "Plants Vs Zombies"), isDragging(false) {
     // Game icon
     sf::Image icon;
@@ -41,23 +43,21 @@ void Game::run() {
             //placePeashooter(window, event, peashooterCardSprite, isPeashooterSelected);
             Vector2i mousePosition = Mouse::getPosition(window);
             createPlantOfType(event, mousePosition);
-    //        
+            Vector2i mousePos = Mouse::getPosition(window);
+            //cout<<"X: "<<mousePos.x<<" Y: "<<mousePos.y<<endl;
+            //int selectedPlant = checkSelectedPlant(mousePos);
 
         }
 
-        handleDragging(window, zombieSprite);
-
+       // handleDragging(window, zombieSprite);
         createBack(window);
         drawGridWithHoverHighlight(window);
-
         window.draw(peashooterCardSprite);
         window.draw(zombieSprite);
-        //peashooter.draw(window);
         plantFactory.draw(window);
         sun.draw(window);
         sun.moveSun();
         drawCardsTextureAndSprite(window);
-
         window.setSize(sf::Vector2u(1280, 720));
         window.display();
     }
@@ -174,27 +174,32 @@ void Game::placePeashooter(RenderWindow& window, Event& event,Sprite& peashooter
 
 void Game::createPlantOfType(sf::Event& event, sf::Vector2i& mousePosition)
 {
+    
+    bool ifPlantCreated = false;
 
     if (event.type == Event::MouseButtonPressed)
     {
-        cout << "Mouse presses" << endl;
-
-        for (int i = 0; i < 5; i++)
+        
+        if (checkSelectedPlant(mousePosition))
         {
-            for (int j = 0; j < 9; j++)
+			plantType = checkSelectedPlant(mousePosition);
+            cout << "check plant type from first if" << plantType << endl;
+		}
+        if (plantType != 0) 
+        {
+            int column = ((mousePosition.x - 230) / 90) + 1;
+            int row = ((mousePosition.y - 120) / 110) + 1;
+            if (((mousePosition.x > 230 && mousePosition.x < 1040) && (mousePosition.y > 120 && mousePosition.y < 670)) && !celloccupied[row - 1][column - 1])
             {
-                cout << celloccupied[i][j] << " ";
+                cout << "check plant type from second if" << plantType << endl;
+                //cout << "Row: " << row << " Column: " << column << endl;
+                ifPlantCreated = plantFactory.createPlant(row, column, plantType);
+                if (ifPlantCreated) {
+                    celloccupied[row - 1][column - 1] = true;
+                    plantType = 0;
 
+                }
             }
-            cout << endl;
-        }
-        int column = ((mousePosition.x - 230) / 90) + 1;
-        int row = ((mousePosition.y - 120) / 110) + 1;
-        if (((mousePosition.x > 230 && mousePosition.x < 1040) && (mousePosition.y > 120 && mousePosition.y < 670)) && !celloccupied[row - 1][column - 1])
-        {
-            cout << "Row: " << row << " Column: " << column << endl;
-            plantFactory.createPlant(row, column);
-            celloccupied[row - 1][column - 1] = true;
         }
     }
 
@@ -252,4 +257,68 @@ void Game::drawCardsTextureAndSprite(RenderWindow& window)
     window.draw(snowpeaCardSprite);
 
 
+}
+
+
+int Game::checkSelectedPlant(sf::Vector2i& mousePosition)
+{
+	if (mousePosition.x > 10 && mousePosition.x < 125 && mousePosition.y > 75 && mousePosition.y < 140)
+	{
+        //cout<<"Sunflower"<<endl;
+		return 1;
+	}
+	else if (mousePosition.x > 10 && mousePosition.x < 125 && mousePosition.y > 170 && mousePosition.y < 240)
+	{
+        //cout<<"Peashooter"<<endl;
+		return 2;
+	}
+	else if (mousePosition.x > 10 && mousePosition.x < 125 && mousePosition.y > 260 && mousePosition.y < 330)
+	{
+        //cout<<"Wallnut"<<endl;
+		return 3;
+	}
+	else if (mousePosition.x > 10 && mousePosition.x < 125 && mousePosition.y > 360 && mousePosition.y < 440)
+	{
+        //cout<<"Cherrybomb"<<endl;
+		return 4;
+	}
+	else if (mousePosition.x > 10 && mousePosition.x < 125 && mousePosition.y > 460 && mousePosition.y < 530)
+	{
+        //cout << "Repeater" << endl;
+		return 5;
+
+	}
+	else if (mousePosition.x > 10 && mousePosition.x < 125 && mousePosition.y > 550 && mousePosition.y < 620)
+	{
+        //cout << "Snowpea" << endl;
+		return 6;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+bool Game::isPlantCardSelected(sf::Vector2i& mousePosition) 
+{
+    if (mousePosition.x > 10 && mousePosition.x<125)
+    {   
+        cout<<"card selected"<<endl;
+
+        if (mousePosition.y > 75 && mousePosition.y < 140)
+        {
+            cout << "sunflower selected" << endl;
+			return true;
+		}
+        else if (mousePosition.y > 170 && mousePosition.y < 240)
+        {
+            cout << "peashooter selected" << endl;
+			return true;
+		}
+
+              
+			return false;
+	
+
+	}
 }

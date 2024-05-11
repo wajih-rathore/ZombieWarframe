@@ -168,6 +168,7 @@ if exist %DLL_DIR%\*.dll (
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Cherrybomb.cpp" />
     <ClCompile Include="DancingZombie.cpp" />
     <ClCompile Include="DolphinRiderZombie.cpp" />
     <ClCompile Include="FlyingZombie.cpp" />
@@ -177,12 +178,17 @@ if exist %DLL_DIR%\*.dll (
     <ClCompile Include="Peashooter.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PlantFactory.cpp" />
+    <ClCompile Include="Repeater.cpp" />
     <ClCompile Include="SimpleZombie.cpp" />
+    <ClCompile Include="Snowpea.cpp" />
     <ClCompile Include="Sun.cpp" />
+    <ClCompile Include="Sunflower.cpp" />
+    <ClCompile Include="Wallnut.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
+    <ClInclude Include="Cherrybomb.h" />
     <ClInclude Include="DancingZombie.h" />
     <ClInclude Include="DolphinRiderZombie.h" />
     <ClInclude Include="FlyingZombie.h" />
@@ -191,8 +197,12 @@ if exist %DLL_DIR%\*.dll (
     <ClInclude Include="Peashooter.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="PlantFactory.h" />
+    <ClInclude Include="Repeater.h" />
     <ClInclude Include="SimpleZombie.h" />
+    <ClInclude Include="Snowpea.h" />
     <ClInclude Include="Sun.h" />
+    <ClInclude Include="Sunflower.h" />
+    <ClInclude Include="Wallnut.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

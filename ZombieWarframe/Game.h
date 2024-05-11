@@ -25,6 +25,9 @@ private:
     void placePeashooter(sf::RenderWindow& window, sf::Event& event, sf::Sprite& peashooterCardSprite, bool& isPeashooterSelected);
     void createPlantOfType(sf::Event& event, sf::Vector2i& mousePosition);
     void drawCardsTextureAndSprite(RenderWindow& window);
+    int checkSelectedPlant(sf::Vector2i& mousePosition);
+    bool isPlantCardSelected(sf::Vector2i& mousePosition);
+    //bool isPlantCardSelected(sf::Vector2i& mousePosition);
 
     RenderWindow window;
     PlantFactory plantFactory;
@@ -37,4 +40,5 @@ private:
     Sun sun;
     bool isDragging;
     bool celloccupied[5][9] = { false };
+    static int plantType;
 };
