@@ -1,7 +1,7 @@
 #pragma once
-#include "Zombie.h"
+#include "Zombies.h"
 class DolphinRiderZombie :
-    public Zombie
+    public Zombies
 {
 public:
     DolphinRiderZombie();

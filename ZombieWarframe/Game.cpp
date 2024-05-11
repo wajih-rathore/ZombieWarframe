@@ -12,6 +12,35 @@ Game::Game() : window(sf::VideoMode(1280, 720), "Plants Vs Zombies"), isDragging
 }
 
 void Game::run() {
+
+    Texture pauseButtonTexture;
+    Sprite pauseButtonSprite;
+    pauseButtonTexture.loadFromFile("Images/pausebutton.png");
+    pauseButtonSprite.setTexture(pauseButtonTexture);
+    pauseButtonSprite.setPosition(1220, 10);
+    pauseButtonSprite.setScale(0.09, 0.09);
+
+    Texture menuButtonTexture;
+    Sprite menuButtonSprite;
+    menuButtonTexture.loadFromFile("Images/menubutton.png");
+    menuButtonSprite.setTexture(menuButtonTexture);
+    menuButtonSprite.setPosition(550, 250);
+    menuButtonSprite.setScale(0.4, 0.4);
+
+    Texture resumeButtonTexture;
+    Sprite resumeButtonSprite;
+    resumeButtonTexture.loadFromFile("Images/resumeButton.png");
+    resumeButtonSprite.setTexture(resumeButtonTexture);
+    resumeButtonSprite.setPosition(550, 350);
+    resumeButtonSprite.setScale(0.4, 0.4);
+
+    Texture dimScreenTexture;
+    Sprite dimScreenSprite;
+    dimScreenTexture.loadFromFile("Images/blackcast.png");
+    dimScreenSprite.setTexture(dimScreenTexture);
+    dimScreenSprite.setPosition(0, 0);
+    dimScreenSprite.setScale(10, 10);
+
     const int ROWS = 5;
     const int COLS = 9;
     //bool celloccupied[5][9] = { false };
@@ -259,8 +288,7 @@ void Game::drawCardsTextureAndSprite(RenderWindow& window)
 
 }
 
-
-int Game::checkSelectedPlant(sf::Vector2i& mousePosition)
+int  Game::checkSelectedPlant(sf::Vector2i& mousePosition)
 {
 	if (mousePosition.x > 10 && mousePosition.x < 125 && mousePosition.y > 75 && mousePosition.y < 140)
 	{

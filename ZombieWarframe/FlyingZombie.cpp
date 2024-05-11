@@ -1,23 +1,23 @@
 #include "FlyingZombie.h"
-#include"Zombie.h"
 
 FlyingZombie::FlyingZombie()
 {
-	zombieTexture.loadFromFile("../Images/img1.png");//add flyingzombie sprite later
+	zombieTexture.loadFromFile("../Images/flyingzombie.png");	//add flyingzombie sprite 
+
+	sf::IntRect frameRect(0, 0, 34, 58);
+	sprite.setTextureRect(frameRect);
+
 	sprite.setTexture(zombieTexture);
-	sprite.setPosition(positionX, positionY);
-	zombieHealth = 120;	//20 for the ballooon
-	zombieSpeed = 0.3f;
+	sprite.setPosition(positionX,positionY - 40);
+	zombieHealth = 90;	
+	zombieSpeed = 0.2f;
+
+	sprite.setScale(3.0f, 3.0f);
 }
 
 void FlyingZombie::moveZombie()
 {
-	Zombie::moveZombie();
-}
-
-void FlyingZombie::flyOver()
-{
-
+	Zombies::moveZombie();
 }
 
 void FlyingZombie::updateSprite()

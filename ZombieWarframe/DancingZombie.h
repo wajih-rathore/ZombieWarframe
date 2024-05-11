@@ -1,13 +1,14 @@
 #pragma once
-#include "Zombie.h"
+#include "Zombies.h"
 class DancingZombie :
-    public Zombie
+    public Zombies
 {
+    int direction;
+    float rowchange;
 public:
     DancingZombie();
     void moveZombie();
     void updateSprite();
-    void summonZombies();
 
 };
 

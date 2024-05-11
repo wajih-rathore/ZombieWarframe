@@ -1,13 +1,14 @@
 #pragma once
-#include "Zombie.h"
+#include "Zombies.h"
 class SimpleZombie :
-    public Zombie
+    public Zombies
 {
-    //private:
-    //    Texture simpleZombieTexture;
-    //    Sprite simpleZombieSprite;
+//private:
+//    Texture simpleZombieTexture;
+//    Sprite simpleZombieSprite;
 public:
     SimpleZombie();
     void moveZombie();
     void updateSprite();
 };
+

@@ -1,8 +1,9 @@
 #pragma once
-#include "Zombie.h"
+#include "Zombies.h"
 class FlyingZombie :
-    public Zombie
+    public Zombies
 {
+
     //collision detection would vary, animation for balloon popping in update sprite
 public:
     FlyingZombie();
